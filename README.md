@@ -15,8 +15,5 @@
  Recherche en temps réel  
  Affichage des films & séries depuis un fichier JSON  
  Filtres dynamiques (Accueil, Films, Séries)  
- Détails au clic avec fenêtre animée  
- Hover smooth des cartes  
- Responsive design  
- Overlay sombre sur la bannière pour un look ciné
+ Détails au clic avec fenêtre animée
 
