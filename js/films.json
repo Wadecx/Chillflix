@@ -1,0 +1,114 @@
+[
+  {
+    "id": 1,
+    "title": "Stranger Things",
+    "year": 2016,
+    "type": "Série",
+    "image": "https://image.tmdb.org/t/p/w780/x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg",
+    "description": "Un groupe d'enfants enquête sur la disparition mystérieuse de leur ami dans une petite ville américaine."
+  },
+  {
+    "id": 3,
+    "title": "The Witcher",
+    "year": 2019,
+    "type": "Série",
+    "image": "https://image.tmdb.org/t/p/w780/zrPpUlehQaBf8YX2NrVrKK8IEpf.jpg",
+    "description": "Un chasseur de monstres solitaire lutte pour survivre dans un monde brutal et rempli de magie."
+  },
+  {
+    "id": 4,
+    "title": "The Dark Knight",
+    "year": 2008,
+    "type": "Film",
+    "image": "https://image.tmdb.org/t/p/w780/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+    "description": "Batman doit affronter le Joker, un criminel anarchiste qui sème le chaos à Gotham City."
+  },
+  {
+    "id": 5,
+    "title": "Breaking Bad",
+    "year": 2008,
+    "type": "Série",
+    "image": "https://image.tmdb.org/t/p/w780/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
+    "description": "Un professeur de chimie malade se lance dans la fabrication de méthamphétamine pour assurer l'avenir de sa famille."
+  },
+  {
+    "id": 6,
+    "title": "Interstellar",
+    "year": 2014,
+    "type": "Film",
+    "image": "https://image.tmdb.org/t/p/w780/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
+    "description": "Des explorateurs voyagent à travers un trou de ver pour trouver une nouvelle planète habitable."
+  },
+  {
+    "id": 7,
+    "title": "Game of Thrones",
+    "year": 2011,
+    "type": "Série",
+    "image": "https://image.tmdb.org/t/p/w780/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg",
+    "description": "Des familles nobles luttent pour le pouvoir dans un royaume médiéval brutal et complexe."
+  },
+  {
+    "id": 9,
+    "title": "Friends",
+    "year": 1994,
+    "type": "Série",
+    "image": "https://image.tmdb.org/t/p/w780/f496cm9enuEsZkSPzCwnTESEK5s.jpg",
+    "description": "Six amis new-yorkais partagent joies, peines et aventures dans cette comédie culte."
+  },
+  {
+    "id": 10,
+    "title": "The Matrix",
+    "year": 1999,
+    "type": "Film",
+    "image": "https://image.tmdb.org/t/p/w780/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
+    "description": "Un hacker découvre que le monde dans lequel il vit est une simulation contrôlée par des machines."
+  },
+  {
+    "id": 12,
+    "title": "Pulp Fiction",
+    "year": 1994,
+    "type": "Film",
+    "image": "https://image.tmdb.org/t/p/w780/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg",
+    "description": "Des histoires entrecroisées de criminels dans Los Angeles, racontées avec un style unique."
+  },
+  {
+    "id": 14,
+    "title": "Forrest Gump",
+    "year": 1994,
+    "type": "Film",
+    "image": "https://image.tmdb.org/t/p/w780/saHP97rTPS5eLmrLQEcANmKrsFl.jpg",
+    "description": "L'incroyable parcours d'un homme simple au cœur des événements majeurs du XXe siècle."
+  },
+  {
+    "id": 16,
+    "title": "Gladiator",
+    "year": 2000,
+    "type": "Film",
+    "image": "https://image.tmdb.org/t/p/w780/ty8TGRuvJLPUmAR1H1nRIsgwvim.jpg",
+    "description": "Un général romain déchu devient gladiateur pour se venger de l'empereur corrompu."
+  },
+  {
+    "id": 17,
+    "title": "Stranger Things 2",
+    "year": 2017,
+    "type": "Série",
+    "image": "https://image.tmdb.org/t/p/w780/jtAI6OJIWLWiRItNSZoWjrsUtmi.jpg",
+    "description": "La suite des aventures mystérieuses et surnaturelles des enfants de Hawkins."
+  },
+  {
+    "id": 18,
+    "title": "The Godfather",
+    "year": 1972,
+    "type": "Film",
+    "image": "https://image.tmdb.org/t/p/w780/eEslKSwcqmiNS6va24Pbxf2UKmJ.jpg",
+    "description": "L'histoire épique de la famille mafieuse Corleone et de son pouvoir dans le crime organisé."
+  },
+  {
+    "id": 20,
+    "title": "The Avengers",
+    "year": 2012,
+    "type": "Film",
+    "image": "https://image.tmdb.org/t/p/w780/RYMX2wcKCBAr24UyPD7xwmjaTn.jpg",
+    "description": "Un groupe de super-héros s’allie pour sauver la Terre d’une menace extraterrestre."
+  }
+]

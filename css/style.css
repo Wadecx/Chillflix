@@ -1,0 +1,317 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+body {
+  background-color: #141414;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+li {
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.barre-de-navigation .conteneur {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 95%;
+  margin: auto;
+}
+
+li:hover {
+  color: rgb(177, 177, 177);
+  transform: scale(1.05);
+  transition: 0.3s ease-in-out;
+}
+
+.barre-de-navigation {
+  align-items: center;
+  display: flex;
+  color: white;
+  background-color: #0a0a0a;
+  min-width: 100%;
+}
+
+.barre-de-navigation img {
+  width: 15%;
+}
+
+.droite {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+}
+
+.bouton-recherche {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: white;
+  user-select: none;
+}
+
+.droite input[type="text"] {
+  background-color: #333;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 20px;
+  width: 0;
+  font-size: 18px;
+  color: white;
+  outline: none;
+  opacity: 0;
+  transition: width 0.3s ease, opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.droite input[type="text"].visible {
+  width: 300px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.compte-utilisateur {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.compte-utilisateur img {
+  width: 30px;
+  height: 30px;
+}
+
+.banniere-principale {
+  position: relative;
+  overflow: hidden;
+}
+
+.banniere-principale img {
+  width: 100%;
+  height: 15%;
+  display: block;
+}
+
+.banniere-principale::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.banniere-principale .accueil {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  text-align: center;
+  color: white;
+}
+
+
+.accueil {
+  position: absolute;
+  top: 75%;
+  left: 10%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: start;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
+  font-family: sans-serif;
+}
+
+.section-medias {
+  padding: 20px;
+  color: white;
+  background-color: #141414;
+}
+
+.conteneur-medias {
+  max-width: 90%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 2fr);
+  gap: 15px;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.media-card {
+  background-color: #222;
+  border-radius: 8px;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.media-card:hover {
+  transform: scale(1.1);
+}
+
+.media-card img {
+  width: 110%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  border-bottom: 1px solid #444;
+}
+
+.media-card .info {
+  padding: 8px 10px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.media-card .info h3 {
+  margin: 0 0 5px;
+  font-size: 1rem;
+  color: white;
+}
+
+.media-card .info p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #bbb;
+  height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.media-card.animate-out {
+  animation: slideDownFadeOut 0.4s forwards;
+}
+
+.media-card.animate-in {
+  animation: slideUpFadeIn 0.4s forwards;
+}
+
+@keyframes slideDownFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+}
+
+@keyframes slideUpFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.conteneur-medias .media-carte {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  width: 80%;
+  position: relative;
+  z-index: 0;
+}
+
+.conteneur-medias .media-carte:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+  z-index: 10;
+}
+
+.fenetre-details {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 9999;
+}
+
+#image-details {
+  max-width: 400px;
+  height: auto;
+  display: block;
+  margin: 0 auto 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.fenetre-details[aria-hidden="false"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.contenu-details {
+  background: #222;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 90%;
+  color: white;
+  box-shadow: 0 0 20px rgba(0,0,0,0.8);
+  transform: scale(0.8);
+  transition: transform 0.3s ease;
+}
+
+.fenetre-details.ouvrir-animation .contenu-details {
+  transform: scale(1);
+}
+
+
+#fermer-details {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 30px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+@keyframes apparitionDetails {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.fenetre-details[aria-hidden="false"] .contenu-details {
+  animation: apparitionDetails 0.3s ease forwards;
+}
+
+
+

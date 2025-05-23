@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/style.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="icon" href="/img/icons/favicon.png" type="image/x-icon" />
+
+    <title>ChillFlix</title>
+  </head>
+  <body>
+    <header class="barre-de-navigation">
+      <div class="conteneur">
+        <div class="gauche">
+          <img src="/img/icons/chillflix.png" alt="Logo ChillFlix" />
+        </div>
+        <div class="droite">
+          <button
+            id="bouton-recherche"
+            aria-label="Ouvrir la recherche"
+            type="button"
+            class="bouton-recherche"
+          >
+            <i class="fa-solid fa-magnifying-glass" style="color: #ffffff"></i>
+          </button>
+          <input
+            type="text"
+            id="champ-recherche"
+            placeholder="Rechercher un film, une série..."
+            class="champ-recherche"
+            aria-hidden="true"
+          />
+          <ul class="menu-principal">
+            <li id="menu-accueil">Accueil</li>
+            <li id="menu-films">Films</li>
+            <li id="menu-series">Séries</li>
+            <div class="compte-utilisateur">
+              <img src="/img/icons/account.png" alt="Mon compte" />
+              <p>Tyron</p>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <section class="banniere-principale">
+      <img src="/img/icons/cinema1.jpg" alt="Salle de cinéma" />
+      <div class="accueil">
+        <h2>Bienvenue sur ChillFlix</h2>
+        <p>Des films & séries à portée de clic</p>
+      </div>
+    </section>
+
+    <section id="section-medias" class="section-medias">
+      <h2>Films & Séries</h2>
+      <div id="conteneur-medias" class="conteneur-medias"></div>
+    </section>
+
+    <div id="fenetre-details" class="fenetre-details cachée">
+      <div class="contenu-details">
+        <button id="fermer-details" aria-label="Fermer la fenêtre de détails">
+          ✖
+        </button>
+        <img id="image-details" src="" alt="Affiche du film" />
+        <h3 id="titre-details"></h3>
+        <p id="description-details"></p>
+        <p id="annee-details"></p>
+      </div>
+    </div>
+
+    <script src="/js/script.js"></script>
+  </body>
+</html>
