@@ -6,7 +6,7 @@
 
 ##  Aperçu
 
-![Aperçu de ChillFlix](/img/screens/preview.png)
+![Aperçu de ChillFlix](img/screens/preview.png)
 
 ---
 
