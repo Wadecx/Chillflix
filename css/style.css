@@ -312,3 +312,44 @@ li:hover {
 .fenetre-details[aria-hidden="false"] .contenu-details {
   animation: apparitionDetails 0.3s ease forwards;
 }
+
+@media screen and (max-width: 700px) {
+  .menu-principal {
+    display: none;
+  }
+
+  .barre-de-navigation {
+    padding: 20px;
+    max-width: 90%;
+    margin: auto;
+  }
+
+  .barre-de-navigation .gauche img {
+    width: 100px;
+  }
+
+  .droite input[type="text"].visible {
+    width: 200px;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .conteneur-medias {
+    max-width: 90%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(1, 2fr);
+    gap: 15px;
+    justify-content: center;
+    padding: 10px 0;
+  }
+
+  #image-details {
+    max-width: 200px;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+}
