@@ -1,9 +1,3 @@
-
-
-
-// Bon courage pour le code Adelaide 😁🔥
-
-
 const boutonRecherche = document.getElementById("bouton-recherche");
 const champRecherche = document.getElementById("champ-recherche");
 const conteneurMedias = document.getElementById("conteneur-medias");
@@ -30,18 +24,19 @@ boutonRecherche.addEventListener("click", () => {
   }
 });
 
-
 document.getElementById("menu-accueil").addEventListener("click", () => {
   afficherFilms(films);
 });
 
 document.getElementById("menu-films").addEventListener("click", () => {
-  const filmsFiltres = films.filter(f => f.type.toLowerCase() === "film");
+  const filmsFiltres = films.filter((f) => f.type.toLowerCase() === "film");
   afficherFilms(filmsFiltres);
 });
 
 document.getElementById("menu-series").addEventListener("click", () => {
-  const seriesFiltres = films.filter(f => f.type.toLowerCase() === "série" || f.type.toLowerCase() === "serie");
+  const seriesFiltres = films.filter(
+    (f) => f.type.toLowerCase() === "série" || f.type.toLowerCase() === "serie"
+  );
   afficherFilms(seriesFiltres);
 });
 
@@ -51,7 +46,9 @@ function afficherFilms(liste) {
     return;
   }
 
-  Array.from(conteneurMedias.children).forEach(carte => carte.classList.add("animate-out"));
+  Array.from(conteneurMedias.children).forEach((carte) =>
+    carte.classList.add("animate-out")
+  );
 
   setTimeout(() => {
     afficherCartes(liste);
@@ -97,12 +94,13 @@ const detailsHTML = `
     </div>
   </div>
 `;
-document.body.insertAdjacentHTML('beforeend', detailsHTML);
+document.body.insertAdjacentHTML("beforeend", detailsHTML);
 function ouvrirDetails(film) {
   imageDetails.src = film.image;
   imageDetails.alt = film.title;
   titreDetails.textContent = film.title;
-  descriptionDetails.textContent = film.description || "Description non disponible.";
+  descriptionDetails.textContent =
+    film.description || "Description non disponible.";
   anneeDetails.textContent = `Année : ${film.year}`;
   fenetreDetails.setAttribute("aria-hidden", "false");
 
@@ -114,28 +112,31 @@ boutonFermerDetails.addEventListener("click", () => {
   fenetreDetails.setAttribute("aria-hidden", "true");
 });
 
-fenetreDetails.addEventListener("click", e => {
+fenetreDetails.addEventListener("click", (e) => {
   if (e.target === fenetreDetails) {
     fenetreDetails.setAttribute("aria-hidden", "true");
   }
 });
 
-fetch('/js/films.json')
-  .then(response => {
+fetch("js/films.json")
+  .then((response) => {
     if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`);
     return response.json();
   })
-  .then(data => {
+  .then((data) => {
     films = data;
     afficherFilms(films);
   })
-  .catch(error => {
-    console.error('Erreur lors du chargement des films:', error);
-    conteneurMedias.innerHTML = "<p>Impossible de charger la liste des films.</p>";
+  .catch((error) => {
+    console.error("Erreur lors du chargement des films:", error);
+    conteneurMedias.innerHTML =
+      "<p>Impossible de charger la liste des films.</p>";
   });
 
-champRecherche.addEventListener("input", e => {
+champRecherche.addEventListener("input", (e) => {
   const recherche = e.target.value.toLowerCase();
-  const filtres = films.filter(film => film.title.toLowerCase().includes(recherche));
+  const filtres = films.filter((film) =>
+    film.title.toLowerCase().includes(recherche)
+  );
   afficherFilms(filtres);
 });

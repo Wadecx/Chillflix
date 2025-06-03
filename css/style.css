@@ -127,7 +127,6 @@ li:hover {
   color: white;
 }
 
-
 .accueil {
   position: absolute;
   top: 75%;
@@ -243,8 +242,11 @@ li:hover {
 
 .fenetre-details {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.75);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -255,7 +257,7 @@ li:hover {
 }
 
 #image-details {
-  max-width: 400px;
+  max-width: 300px;
   height: auto;
   display: block;
   margin: 0 auto 20px;
@@ -275,7 +277,7 @@ li:hover {
   max-width: 500px;
   width: 90%;
   color: white;
-  box-shadow: 0 0 20px rgba(0,0,0,0.8);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
   transform: scale(0.8);
   transition: transform 0.3s ease;
 }
@@ -283,7 +285,6 @@ li:hover {
 .fenetre-details.ouvrir-animation .contenu-details {
   transform: scale(1);
 }
-
 
 #fermer-details {
   position: absolute;
@@ -311,6 +312,3 @@ li:hover {
 .fenetre-details[aria-hidden="false"] .contenu-details {
   animation: apparitionDetails 0.3s ease forwards;
 }
-
-
-
