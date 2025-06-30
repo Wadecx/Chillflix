@@ -1,0 +1,108 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #141414;
+  color: #e5e5e5;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 20px 40px;
+}
+
+nav {
+  margin-bottom: 30px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+nav a {
+  color: #b3b3b3;
+  text-decoration: none;
+  margin-right: 15px;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #e50914;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 40px;
+  letter-spacing: 1.2px;
+}
+
+#films {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 25px;
+}
+
+.film {
+  background-color: #222;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.8);
+  color: #fff;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.film:hover {
+  background-color: #2c2c2c;
+}
+
+.film strong {
+  font-size: 1.15rem;
+  flex-grow: 1;
+}
+
+.film button.favori-btn {
+  background-color: #e50914;
+  border: none;
+  color: white;
+  padding: 8px 15px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+.film button.favori-btn:hover {
+  background-color: #b00610;
+}
+
+#films:empty {
+  font-size: 1.25rem;
+  color: #999;
+  text-align: center;
+  margin-top: 60px;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 15px 20px;
+  }
+  #films {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  .film {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .film button.favori-btn {
+    margin-top: 10px;
+    width: 100%;
+  }
+}

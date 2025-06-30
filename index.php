@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['username'])) {
+    header('Location: signin.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -9,7 +17,6 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link rel="icon" href="img/icons/favicon.png" type="image/x-icon" />
-
     <title>ChillFlix</title>
   </head>
   <body>
@@ -19,30 +26,34 @@
           <img src="img/icons/chillflix.png" alt="Logo ChillFlix" />
         </div>
         <div class="droite">
-          <button
-            id="bouton-recherche"
-            aria-label="Ouvrir la recherche"
-            type="button"
-            class="bouton-recherche"
-          >
-            <i class="fa-solid fa-magnifying-glass" style="color: #ffffff"></i>
-          </button>
-          <input
-            type="text"
-            id="champ-recherche"
-            placeholder="Rechercher un film, une série..."
-            class="champ-recherche"
-            aria-hidden="true"
-          />
-          <ul class="menu-principal">
-            <li id="menu-accueil">Accueil</li>
-            <li id="menu-films">Films</li>
-            <li id="menu-series">Séries</li>
-            <div class="compte-utilisateur">
-              <img src="img/icons/account.png" alt="Mon compte" />
-              <p>Tyron</p>
-            </div>
-          </ul>
+          <nav class="menu-principal">
+            <ul>
+              <li><a href="#">Accueil</a></li>
+              <li><a href="#">Films</a></li>
+              <li><a href="#">Séries</a></li>
+              <li><a href="favoris.php">Favoris</a></li>
+            </ul>
+          </nav>
+
+          <div class="recherche">
+            <button id="bouton-recherche" type="button" aria-label="Recherche">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <input
+              type="text"
+              id="champ-recherche"
+              placeholder="Rechercher un film, une série..."
+              class="champ-recherche"
+            />
+          </div>
+
+          <div class="compte-utilisateur">
+            <img src="img/icons/account.png" alt="Mon compte" />
+            <?php if (isset($_SESSION['username'])): ?>
+              <span><?php echo htmlspecialchars($_SESSION['username']); ?></span>
+              <a href="logout.php" class="logout" title="Déconnexion">🚪</a>
+            <?php endif; ?>
+          </div>
         </div>
       </div>
     </header>
@@ -62,9 +73,7 @@
 
     <div id="fenetre-details" class="fenetre-details cachée">
       <div class="contenu-details">
-        <button id="fermer-details" aria-label="Fermer la fenêtre de détails">
-          ✖
-        </button>
+        <button id="fermer-details" aria-label="Fermer la fenêtre de détails">✖</button>
         <img id="image-details" src="" alt="Affiche du film" />
         <h3 id="titre-details"></h3>
         <p id="description-details"></p>

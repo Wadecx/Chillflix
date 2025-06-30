@@ -1,8 +1,12 @@
 const boutonRecherche = document.getElementById("bouton-recherche");
 const champRecherche = document.getElementById("champ-recherche");
-const submitRecherche = document.getElementById("submit-recherche");
+const conteneurRecherche = boutonRecherche.parentElement;
 const conteneurMedias = document.getElementById("conteneur-medias");
 const barreNavigation = document.querySelector(".barre-de-navigation");
+
+document.addEventListener("click", (e) => {
+  console.log("Clic sur :", e.target);
+});
 
 let paginationDiv = document.getElementById("pagination");
 if (!paginationDiv) {
@@ -18,14 +22,15 @@ if (!paginationDiv) {
 let films = [];
 let recherche = "";
 let pageActuelle = 1;
-const ELEMENTS_PAR_PAGE = 5;
+const ELEMENTS_PAR_PAGE = 4;
 let timerRechercheAuto = null;
 
-// Bouton recherche toggle barre recherche
-boutonRecherche.addEventListener("click", () => {
-  champRecherche.classList.toggle("visible");
+boutonRecherche.addEventListener("click", (e) => {
+  e.preventDefault();
 
-  if (champRecherche.classList.contains("visible")) {
+  conteneurRecherche.classList.toggle("active");
+
+  if (conteneurRecherche.classList.contains("active")) {
     champRecherche.setAttribute("aria-hidden", "false");
     champRecherche.focus();
   } else {
@@ -39,16 +44,44 @@ boutonRecherche.addEventListener("click", () => {
   }
 });
 
-// Focus/Blur gestion logo
+document.addEventListener("click", (e) => {
+  if (
+    conteneurRecherche.classList.contains("active") &&
+    !conteneurRecherche.contains(e.target) &&
+    e.target !== boutonRecherche
+  ) {
+    conteneurRecherche.classList.remove("active");
+    champRecherche.setAttribute("aria-hidden", "true");
+    champRecherche.value = "";
+    recherche = "";
+    // On ne vide PAS la liste films ici
+    // films = [];
+    // pageActuelle = 1;
+    // afficherFilms();
+    // afficherPagination();
+  }
+});
+
+champRecherche.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    conteneurRecherche.classList.remove("active");
+    champRecherche.setAttribute("aria-hidden", "true");
+    champRecherche.value = "";
+    recherche = "";
+    films = [];
+    pageActuelle = 1;
+    afficherFilms();
+    afficherPagination();
+  }
+});
+
 champRecherche.addEventListener("focus", () => {
   barreNavigation.classList.add("recherche-active");
 });
-
 champRecherche.addEventListener("blur", () => {
   barreNavigation.classList.remove("recherche-active");
 });
 
-// Saisie input avec debounce pour recherche auto après 3 secondes
 champRecherche.addEventListener("input", (e) => {
   recherche = e.target.value.trim();
 
@@ -60,38 +93,29 @@ champRecherche.addEventListener("input", (e) => {
       callApi();
     }, 3000);
   } else {
-    // Si vide, on vide résultats
     films = [];
     afficherFilms();
     afficherPagination();
   }
 });
 
-// Soumission bouton recherche (clic)
-submitRecherche.addEventListener("click", (e) => {
-  e.preventDefault();
-  if (recherche !== "") {
-    pageActuelle = 1;
-    callApi();
-  }
-});
-
-// Fonction pour appeler l'API OMDB
 function callApi() {
   const url = `https://www.omdbapi.com/?apikey=49ecc849&s=${encodeURIComponent(
     recherche
-  )}&type=movie`;
+  )}&type=movie&page=1`;
 
   fetch(url)
     .then((res) => res.json())
     .then((data) => {
       if (data.Response === "True") {
         films = data.Search;
+        pageActuelle = 1;
         afficherFilms();
         afficherPagination();
       } else {
         alert("Aucun résultat : " + data.Error);
         films = [];
+        pageActuelle = 1;
         afficherFilms();
         afficherPagination();
       }
@@ -99,7 +123,6 @@ function callApi() {
     .catch((err) => alert("Erreur : " + err));
 }
 
-// Affichage films
 function afficherFilms() {
   conteneurMedias.innerHTML = "";
 
@@ -107,6 +130,7 @@ function afficherFilms() {
     conteneurMedias.innerHTML = "<p>Aucun film à afficher.</p>";
     return;
   }
+
   const debut = (pageActuelle - 1) * ELEMENTS_PAR_PAGE;
   const fin = Math.min(debut + ELEMENTS_PAR_PAGE, films.length);
 
@@ -126,9 +150,9 @@ function afficherFilms() {
     conteneurMedias.appendChild(carte);
   }
 
-  // Ajouter événement click sur affiches
   document.querySelectorAll(".affiche-film").forEach((img) => {
-    img.addEventListener("click", async () => {
+    img.addEventListener("click", async (e) => {
+      e.preventDefault();
       const imdbID = img.getAttribute("data-id");
 
       const res = await fetch(
@@ -145,7 +169,6 @@ function afficherFilms() {
   });
 }
 
-// Affichage pagination
 function afficherPagination() {
   paginationDiv.innerHTML = "";
 
@@ -154,10 +177,12 @@ function afficherPagination() {
   const totalPages = Math.ceil(films.length / ELEMENTS_PAR_PAGE);
 
   const btnPrec = document.createElement("button");
+  btnPrec.type = "button";
   btnPrec.textContent = "← Précédent";
   btnPrec.disabled = pageActuelle === 1;
   btnPrec.style.marginRight = "10px";
-  btnPrec.addEventListener("click", () => {
+  btnPrec.addEventListener("click", (e) => {
+    e.preventDefault();
     if (pageActuelle > 1) {
       pageActuelle--;
       afficherFilms();
@@ -166,9 +191,11 @@ function afficherPagination() {
   });
 
   const btnSuiv = document.createElement("button");
+  btnSuiv.type = "button";
   btnSuiv.textContent = "Suivant →";
   btnSuiv.disabled = pageActuelle === totalPages;
-  btnSuiv.addEventListener("click", () => {
+  btnSuiv.addEventListener("click", (e) => {
+    e.preventDefault();
     if (pageActuelle < totalPages) {
       pageActuelle++;
       afficherFilms();
@@ -185,7 +212,6 @@ function afficherPagination() {
   paginationDiv.appendChild(btnSuiv);
 }
 
-// Injection modal détail film
 function injecterModal(film) {
   const ancienModal = document.getElementById("fenetre-details");
   if (ancienModal) ancienModal.remove();
@@ -215,7 +241,7 @@ function injecterModal(film) {
       max-height: 90vh;
       overflow-y: auto;
     ">
-      <button id="fermer-details" style="
+      <button type="button" id="fermer-details" style="
         position: absolute;
         top: 10px;
         right: 10px;
@@ -225,7 +251,7 @@ function injecterModal(film) {
         cursor: pointer;
       ">✖</button>
 
-      <img src="${film.Poster}" alt="${film.Title}" style="
+      <img src="${film.Poster !== "N/A" ? film.Poster : "https://via.placeholder.com/300x450"}" alt="${film.Title}" style="
         width: 100%;
         max-height: 300px;
         object-fit: cover;
@@ -235,6 +261,13 @@ function injecterModal(film) {
       <h3 style="margin-top: 15px;">${film.Title}</h3>
       <p><strong>Année :</strong> ${film.Year}</p>
       <p><strong>Description :</strong> ${film.Plot}</p>
+
+      <button id="bouton-favori" style="
+        margin-top: 15px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      ">Chargement...</button>
     </div>
   `;
 
@@ -243,8 +276,62 @@ function injecterModal(film) {
   document.getElementById("fermer-details").addEventListener("click", () => {
     modal.remove();
   });
-
   modal.addEventListener("click", (e) => {
     if (e.target === modal) modal.remove();
+  });
+
+  const boutonFavori = document.getElementById("bouton-favori");
+  const imdbID = film.imdbID;
+
+  async function estFavori() {
+    try {
+      const res = await fetch("./favoris.php", {
+        headers: { "X-Requested-With": "XMLHttpRequest" }
+      });
+      if (!res.ok) return false;
+      const json = await res.json();
+      return json.favoris && json.favoris.includes(imdbID);
+    } catch {
+      return false;
+    }
+  }
+
+  async function majBouton() {
+    const favori = await estFavori();
+    boutonFavori.textContent = favori ? "Retirer des favoris" : "Ajouter aux favoris";
+    boutonFavori.dataset.favori = favori ? "true" : "false";
+  }
+
+  majBouton();
+
+  boutonFavori.addEventListener("click", async () => {
+    const estDejaFavori = boutonFavori.dataset.favori === "true";
+    const action = estDejaFavori ? "remove" : "add";
+
+    boutonFavori.disabled = true;
+    boutonFavori.textContent = "Chargement...";
+
+    try {
+      const res = await fetch("./favoris.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Requested-With": "XMLHttpRequest"
+        },
+        body: JSON.stringify({ action, oeuvre_id: imdbID }),
+      });
+
+      const json = await res.json();
+
+      if (res.ok && (json.success || json.info)) {
+        await majBouton();
+      } else {
+        alert("Erreur : " + (json.error || "Action impossible"));
+      }
+    } catch {
+      alert("Erreur réseau");
+    } finally {
+      boutonFavori.disabled = false;
+    }
   });
 }
