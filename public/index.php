@@ -1,8 +1,12 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+require_once __DIR__ . '/../src/config/config.php'; // si tu as un fichier config
+require_once __DIR__ . '/../src/router.php'; // On appelle le routeur
 
 if (!isset($_SESSION['username'])) {
-    header('Location: signin.php');
+    header('Location: /signin');
     exit;
 }
 ?>
@@ -51,7 +55,7 @@ if (!isset($_SESSION['username'])) {
             <img src="img/icons/account.png" alt="Mon compte" />
             <?php if (isset($_SESSION['username'])): ?>
               <span><?php echo htmlspecialchars($_SESSION['username']); ?></span>
-              <a href="logout.php" class="logout" title="Déconnexion">🚪</a>
+              <a href="/logout" class="logout" title="Déconnexion">🚪</a>
             <?php endif; ?>
           </div>
         </div>

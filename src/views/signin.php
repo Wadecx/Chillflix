@@ -1,6 +1,9 @@
 <?php
-session_start();
-require_once 'database.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+require_once __DIR__ . '/../services/database.php';
 
 $message = '';
 
@@ -18,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($utilisateur && password_verify($mot_de_passe, $utilisateur['mot_de_passe'])) {
                 $_SESSION['username'] = $utilisateur['identifiant'];
-                header('Location: index.php');
+                header('Location: /');
                 exit;
             } else {
                 $message = "❌ Identifiant ou mot de passe invalide.";
@@ -39,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <section class="login">
-        <form method="POST" class="login-form">
+        <form method="POST" action="/signin" class="login-form">
             <h2>Connexion</h2>
             <?php if ($message): ?>
                 <p style="color:red;"><?= htmlspecialchars($message) ?></p>
@@ -48,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="text" name="user" placeholder="Nom d'utilisateur ou email" required>
             <input type="password" name="password" placeholder="Mot de passe" required>
             <input type="submit" value="Se connecter">
-            <a href="register.php">Pas de compte ? <span class="connect">Crée en un ici</span></a>
+            <a href="/register">Pas de compte ? <span class="connect">Crée en un ici</span></a>
         </form>
     </section>
 </body>
