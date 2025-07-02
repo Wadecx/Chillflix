@@ -1,6 +1,8 @@
 <?php
-session_start();
-require_once 'database.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+require_once __DIR__ . '/../services/database.php';
 
 $message = '';
 
@@ -32,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     if ($success) {
                         $_SESSION['username'] = $identifiant;
-                        header('Location: index.php');
+                        header('Location: /?page=home');
                         exit;
                     } else {
                         $message = "❌ Une erreur est survenue.";
@@ -50,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Créer un compte</title>
     <link rel="stylesheet" href="css/login.css">
 </head>
@@ -65,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="text" name="mail" placeholder="Adresse E-MAIL" required>
             <input type="password" name="password" placeholder="Mot de passe" required>
             <input type="submit" value="Créer un compte">
-            <a href="signin.php">Déjà client ? <span class="connect">Connectez-vous</span></a>
+            <a href="/?page=signin">Déjà client ? <span class="connect">Connectez-vous</span></a>
         </form>
     </section>
 </body>

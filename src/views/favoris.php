@@ -1,36 +1,35 @@
 <?php
-session_start();
-
-try {
-    $db = new PDO('sqlite:SQL/bdd.db');
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    http_response_code(500);
-    echo json_encode(['error' => 'Erreur base de données : ' . $e->getMessage()]);
-    exit;
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
 
+require_once __DIR__ . '/../services/database.php'; 
+
+
 if (!isset($_SESSION['username'])) {
-    if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
-        strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
-        header('Content-Type: application/json');
-        http_response_code(401);
-        echo json_encode(['error' => 'Non authentifié']);
-        exit;
-    } else {
-        header('Location: login.php');
-        exit;
-    }
+    header('Location: /?page=signin');
+    exit;
 }
 
 $username = $_SESSION['username'];
 
-$isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+$databasePath = getenv('DATABASE_PATH') ?: __DIR__ . '/../SQL/bdd.db';
+
+try {
+    $db = new PDO('sqlite:' . $databasePath);
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    http_response_code(500);
+    echo "Erreur base de données : " . htmlspecialchars($e->getMessage());
+    exit;
+}
+
+
+$isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
           strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isAjax) {
     header('Content-Type: application/json');
-
     $data = json_decode(file_get_contents('php://input'), true);
 
     if (!isset($data['action'], $data['oeuvre_id'])) {
@@ -88,23 +87,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $isAjax) {
 <html lang="fr">
 <head>
 <meta charset="UTF-8" />
-<title>Mes favoris</title>
+<title>Mes favoris - ChillFlix</title>
 <link href="css/favoris.css" rel="stylesheet" />
 </head>
 <body>
 
 <nav>
-  <a href="index.php">Accueil</a> |
-  <a href="logout.php">Déconnexion</a>
+  <a href="?page=home">Accueil</a> |
+  <a href="?page=logout">Déconnexion</a>
 </nav>
 
 <h1>Liste de mes films favoris</h1>
 
 <div id="films">
+ 
 </div>
 
 <script>
-const apiFavorisUrl = 'favoris.php';
+const apiFavorisUrl = '?page=favoris';
 
 async function fetchFavoris() {
   const response = await fetch(apiFavorisUrl, {

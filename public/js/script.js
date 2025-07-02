@@ -54,11 +54,6 @@ document.addEventListener("click", (e) => {
     champRecherche.setAttribute("aria-hidden", "true");
     champRecherche.value = "";
     recherche = "";
-    // On ne vide PAS la liste films ici
-    // films = [];
-    // pageActuelle = 1;
-    // afficherFilms();
-    // afficherPagination();
   }
 });
 
@@ -91,7 +86,7 @@ champRecherche.addEventListener("input", (e) => {
     timerRechercheAuto = setTimeout(() => {
       pageActuelle = 1;
       callApi();
-    }, 3000);
+    }, 1500);
   } else {
     films = [];
     afficherFilms();
@@ -231,12 +226,12 @@ function injecterModal(film) {
 
   modal.innerHTML = `
     <div style="
-      background: white;
-      color: black;
+      background: #22222;
+      color: White;
       padding: 20px;
-      border-radius: 10px;
+      border-radius: 5px;
       max-width: 600px;
-      width: 90%;
+      width: 50%;
       position: relative;
       max-height: 90vh;
       overflow-y: auto;
@@ -251,7 +246,11 @@ function injecterModal(film) {
         cursor: pointer;
       ">✖</button>
 
-      <img src="${film.Poster !== "N/A" ? film.Poster : "https://via.placeholder.com/300x450"}" alt="${film.Title}" style="
+      <img src="${
+        film.Poster !== "N/A"
+          ? film.Poster
+          : "https://via.placeholder.com/300x450"
+      }" alt="${film.Title}" style="
         width: 100%;
         max-height: 300px;
         object-fit: cover;
@@ -283,10 +282,12 @@ function injecterModal(film) {
   const boutonFavori = document.getElementById("bouton-favori");
   const imdbID = film.imdbID;
 
+  const apiFavorisUrl = "/?page=favoris";
+
   async function estFavori() {
     try {
-      const res = await fetch("./favoris.php", {
-        headers: { "X-Requested-With": "XMLHttpRequest" }
+      const res = await fetch(apiFavorisUrl, {
+        headers: { "X-Requested-With": "XMLHttpRequest" },
       });
       if (!res.ok) return false;
       const json = await res.json();
@@ -295,10 +296,11 @@ function injecterModal(film) {
       return false;
     }
   }
-
   async function majBouton() {
     const favori = await estFavori();
-    boutonFavori.textContent = favori ? "Retirer des favoris" : "Ajouter aux favoris";
+    boutonFavori.textContent = favori
+      ? "Retirer des favoris"
+      : "Ajouter aux favoris";
     boutonFavori.dataset.favori = favori ? "true" : "false";
   }
 
@@ -312,11 +314,11 @@ function injecterModal(film) {
     boutonFavori.textContent = "Chargement...";
 
     try {
-      const res = await fetch("./favoris.php", {
+      const res = await fetch(apiFavorisUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Requested-With": "XMLHttpRequest"
+          "X-Requested-With": "XMLHttpRequest",
         },
         body: JSON.stringify({ action, oeuvre_id: imdbID }),
       });
